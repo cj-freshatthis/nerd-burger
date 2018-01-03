@@ -1,0 +1,26 @@
+{
+  "name": "motivator",
+  "version": "1.0.0",
+  "description": "Scheduled motivational quotes via Slack.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalyons11/motivator.git"
+  },
+  "author": "Kevin Lyons",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kalyons11/motivator/issues"
+  },
+  "homepage": "https://github.com/kalyons11/motivator#readme",
+  "dependencies": {
+    "mocha": "^4.1.0"
+  },
+  "engines": {
+    "node": "8.4.0",
+    "npm": "5.6.0"
+  }
+}
