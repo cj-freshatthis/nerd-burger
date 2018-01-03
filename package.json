@@ -4,6 +4,7 @@
   "description": "Scheduled motivational quotes via Slack.",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "mocha"
   },
   "repository": {
@@ -17,7 +18,8 @@
   },
   "homepage": "https://github.com/kalyons11/motivator#readme",
   "dependencies": {
-    "mocha": "^4.1.0"
+    "mocha": "^4.1.0",
+    "mongoose": "^5.0.0-rc1"
   },
   "engines": {
     "node": "8.4.0",
