@@ -72,7 +72,7 @@ const getQuote = module.exports.getQuote = () => {
 }
 
 const addQuote = module.exports.addQuote = (data) => {
-  openDatabase().then((res) => {
+  return openDatabase().then((res) => {
     if (! res.success) throw res.obj
     // Create quote object
     let q = new Quote()

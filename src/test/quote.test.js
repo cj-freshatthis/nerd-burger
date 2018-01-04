@@ -33,6 +33,12 @@ describe('Quote', () => {
       let q = getQuote()
       assert.equal(q.toQuoteString(), '"This is the quote." - Bob Smith')
     })
+
+    it('Should convert an anonymous quote correctly.', () => {
+      let q = new Quote()
+      q.text = "This is the quote."
+      assert.equal(q.toQuoteString(), '"This is the quote." - Anonymous')
+    })
   })
 
   describe('Saving', () => {

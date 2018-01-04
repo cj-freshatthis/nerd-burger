@@ -14,6 +14,9 @@ schema.plugin(random, { path: 'r' })
 
 // Adding method to convert to string
 schema.methods.toQuoteString = function() {
+  if (! this.author || ! this.author.trim()) {
+    this.author = "Anonymous"
+  }
   return '"' + this.text + '" - ' + this.author
 }
 
