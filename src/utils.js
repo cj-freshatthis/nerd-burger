@@ -10,6 +10,10 @@ const logger = module.exports.logger = new winston.Logger({
   ]
 })
 
+const isDebug = module.exports.isDebug = () => {
+  return process.env.MOTIVATOR_DEBUG === 'true'
+}
+
 const loadEnv = module.exports.loadEnv = () => {
   logger.info('Loading environment variables.')
   try {
@@ -35,8 +39,7 @@ const openDatabase = module.exports.openDatabase = () => {
     if (! process.env.MOTIVATOR_DEBUG) {
       loadEnv()
     }
-    let debug = process.env.MOTIVATOR_DEBUG === 'true'
-    let url = debug ? process.env.DEV_DB_URL : process.env.PROD_DB_URL
+    let url = isDebug() ? process.env.DEV_DB_URL : process.env.PROD_DB_URL
     mongoose.connect(url) .then(() => {
       mongoose.connection.on('error', err => {
         reject({success: false, obj: err})
@@ -50,8 +53,7 @@ const openDatabase = module.exports.openDatabase = () => {
 }
 
 const dropDatabase = module.exports.dropDatabase = () => {
-  let debug = process.env.MOTIVATOR_DEBUG === 'true'
-  if (debug) {
+  if (isDebug()) {
     logger.info('Dropping database.')
     mongoose.connection.db.dropDatabase()
   }
@@ -64,8 +66,7 @@ const sendMessage = module.exports.sendMessage = (message, hook) => {
       hook = process.env.SLACK_URL
     }
     // Handle default message case
-    // Avoid saturating slack channel
-    console.log(message)
+    // Avoid saturating slack channel with test messages
     if (message.indexOf('Bob Smith') > -1) {
       resolve({success: true, obj: 'Message sent!'})
     } else {

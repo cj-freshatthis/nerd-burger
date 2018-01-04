@@ -81,14 +81,17 @@ describe('TestSuite', () => {
     })
 
     describe('Deletion', () => {
-      xit('Should be able to delete desired quotes from the db.', (done) => {
-        Quote.find().remove({author: 'Bob Smith'}, (err, res) => {
-          if (err) done(err)
-          else {
-            assert.equal(res.ok, 1)
-            done()
-          }
-        })
+      it('Should be able to delete desired quotes from the db.', (done) => {
+        if (! utils.isDebug()) {
+          // Only delete these on prod db
+          Quote.find().remove({author: 'Bob Smith'}, (err, res) => {
+            if (err) done(err)
+            else {
+              assert.equal(res.ok, 1)
+              done()
+            }
+          })
+        } else done()
       })
     })
   })
