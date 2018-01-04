@@ -114,7 +114,7 @@ describe('TestSuite', () => {
   })
 
   describe('Job', () => {
-    it('Should create and execute a job.', (done) => {
+    xit('Should create and execute a job.', (done) => {
       let job = new schedule.Job('test', () => {
         utils.jobFunc().then(() => {
           job.cancel() // just run once
