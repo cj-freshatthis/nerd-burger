@@ -8,5 +8,5 @@ services:
 
 notifications:
   email:
-    on_success: always
+    on_success: never
     on_failure: never
