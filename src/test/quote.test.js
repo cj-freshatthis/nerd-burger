@@ -64,6 +64,15 @@ describe('Quote', () => {
         }
       })
     })
+
+    it('Should be able to retrieve a random quote from the db.', (done) => {
+      utils.getQuote().then(res => {
+        assert(res.success)
+        assert.equal(res.obj.length, 1)
+        assert.equal(res.obj[0].author, 'Bob Smith')
+        done()
+      })
+    })
   })
 
   after((done) => {

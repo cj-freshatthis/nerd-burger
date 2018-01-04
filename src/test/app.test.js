@@ -13,7 +13,7 @@ describe('Config', () => {
 })
 
 describe('Slack', () => {
-  it('Should send a message without an error.', (done) => {
+  xit('Should send a message without an error.', (done) => { // skipping
     utils.sendMessage('Test message!').then(res => {
       assert(res.success)
       done()

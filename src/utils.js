@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
       dotenv = require('dotenv'),
-      { IncomingWebhook } = require('@slack/client')
+      { IncomingWebhook } = require('@slack/client'),
+      Quote = require('./models/quote')
 
 const loadEnv = module.exports.loadEnv = () => {
   console.log('Loading environment variables.')
@@ -46,9 +47,17 @@ const sendMessage = module.exports.sendMessage = (message, hook) => {
     }
     let notification = new IncomingWebhook(hook);
     notification.send(message, (err, res) => {
-      console.log(err)
       if (err) reject({success: false, obj: err})
       else resolve({success: true, obj: res})
+    })
+  })
+}
+
+const getQuote = module.exports.getQuote = () => {
+  return new Promise((resolve, reject) => {
+    Quote.findRandom().limit(1).exec((err, docs) => {
+      if (err) reject({success: false, obj: err})
+      else resolve({success: true, obj: docs})
     })
   })
 }
