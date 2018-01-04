@@ -68,3 +68,20 @@ const getQuote = module.exports.getQuote = () => {
     })
   })
 }
+
+const addQuote = module.exports.addQuote = (data) => {
+  openDatabase().then((res) => {
+    if (! res.success) throw res.obj
+    // Create quote object
+    let q = new Quote()
+    q.text = data.text
+    q.author = data.author
+    return q.save()
+  }).then((res) => {
+    logger.info('Quote save success!')
+    closeDatabase()
+  }).catch((err) => {
+    logger.error(err)
+    closeDatabase()
+  })
+}

@@ -24,5 +24,12 @@ const jobFunc = () => {
   })
 }
 
-jobFunc()
+// Schedule job with given timing
+schedule.scheduleJob({
+  hour: 7,
+  minute: 0,
+  dayOfWeek: [1, 2, 3, 4, 5]
+}, jobFunc)
+
+utils.logger.info('Scheduled job.')
 
