@@ -62,3 +62,4 @@ package-lock.json
 
 # WebStorm IDE files
 .idea/
+.env
