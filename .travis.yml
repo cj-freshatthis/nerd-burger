@@ -5,3 +5,8 @@ node_js:
 
 services:
  - mongodb
+
+notifications:
+  email:
+    on_success: always
+    on_failure: never
