@@ -65,11 +65,9 @@ const sendMessage = module.exports.sendMessage = (message, hook) => {
     }
     // Handle default message case
     // Avoid saturating slack channel
-    if (message === 'This is the quote.') {
+    if (message.indexOf('Bob Smith') > -1) {
       resolve({success: true, obj: 'Message sent!'})
     }
-    console.log(hook)
-    console.log(message)
     let notification = new IncomingWebhook(hook)
     notification.send(message, (err, res) => {
       if (err) reject({success: false, obj: err})

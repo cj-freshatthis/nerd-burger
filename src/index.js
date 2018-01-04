@@ -4,11 +4,9 @@ const utils = require('./utils'),
 // Schedule job with given timing - 7 AM weekdays
 let job = new schedule.Job('MainJob', () => {
   utils.openDatabase().then(res => {
-    console.log(res)
     if (! res.success) throw res
     return utils.jobFunc()
   }).then(res => {
-    console.log(res)
     if (! res.success) throw res
     utils.closeDatabase()
     job.cancel()
