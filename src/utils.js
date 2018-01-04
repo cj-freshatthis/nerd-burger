@@ -13,6 +13,7 @@ const logger = module.exports.logger = new (winston.Logger)({
 const loadEnv = module.exports.loadEnv = () => {
   logger.info('Loading environment variables.')
   dotenv.load()
+  logger.info('MOTIVATOR_DEBUG = ' + process.env.MOTIVATOR_DEBUG)
 }
 
 const closeDatabase = module.exports.closeDatabase = () => {
