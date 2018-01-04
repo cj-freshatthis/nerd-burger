@@ -65,14 +65,16 @@ const sendMessage = module.exports.sendMessage = (message, hook) => {
     }
     // Handle default message case
     // Avoid saturating slack channel
+    console.log(message)
     if (message.indexOf('Bob Smith') > -1) {
       resolve({success: true, obj: 'Message sent!'})
+    } else {
+      let notification = new IncomingWebhook(hook)
+      notification.send(message, (err, res) => {
+        if (err) reject({success: false, obj: err})
+        else resolve({success: true, obj: res})
+      })
     }
-    let notification = new IncomingWebhook(hook)
-    notification.send(message, (err, res) => {
-      if (err) reject({success: false, obj: err})
-      else resolve({success: true, obj: res})
-    })
   })
 }
 
@@ -101,8 +103,7 @@ const jobFunc = module.exports.jobFunc = () => {
   return getQuote().then(res => {
     if (! res.success) throw res
     // Construct quote string and send
-    let message = res.obj.toQuoteString()
-    return sendMessage(message)
+    return sendMessage(res.obj.toQuoteString())
   }).then(res => {
     if (! res.success) throw res
     // Message sent at this point

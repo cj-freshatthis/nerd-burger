@@ -8,6 +8,7 @@ let job = new schedule.Job('MainJob', () => {
     return utils.jobFunc()
   }).then(res => {
     if (! res.success) throw res
+    utils.logger.info(res)
     utils.closeDatabase()
     job.cancel()
   }).catch(err => {
