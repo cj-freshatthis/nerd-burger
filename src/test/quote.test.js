@@ -17,7 +17,6 @@ const isEmpty = (obj) => {
 describe('Quote', () => {
   before((done) => {
     utils.openDatabase().then(res => {
-      utils.dropDatabase()
       done()
     })
   })
