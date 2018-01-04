@@ -4,9 +4,9 @@ const mongoose = require('mongoose'),
       winston = require('winston'),
       Quote = require('./models/quote')
 
-const logger = module.exports.logger = new (winston.Logger)({
+const logger = module.exports.logger = new winston.Logger({
   transports: [
-    new (winston.transports.Console)({'timestamp':true})
+    new winston.transports.Console({'timestamp': true})
   ]
 })
 
@@ -23,24 +23,25 @@ const closeDatabase = module.exports.closeDatabase = () => {
 
 const openDatabase = module.exports.openDatabase = () => {
   return new Promise(function(resolve, reject) {
+    if (mongoose.connection.readyState === 1) {
+      // Already connected - no more to be done
+      resolve({success: true, obj: 'Connected!'})
+    }
     logger.info('Opening database connection.')
     if (! process.env.MOTIVATOR_DEBUG) {
       loadEnv()
     }
     let debug = process.env.MOTIVATOR_DEBUG === 'true'
     let url = debug ? process.env.DEV_DB_URL : process.env.PROD_DB_URL
-    mongoose.connect(url)
-      .then(() => {
-        mongoose.connection.on('error', err => {
-          reject({success: false, obj: err})
-        })
-
-        resolve({success: true, obj: 'Connected!'})
-      })
-      .catch(err => {
-        closeDatabase()
+    mongoose.connect(url) .then(() => {
+      mongoose.connection.on('error', err => {
         reject({success: false, obj: err})
       })
+
+      resolve({success: true, obj: 'Connected!'})
+    }).catch(err => {
+      reject({success: false, obj: err})
+    })
   })
 }
 
@@ -76,18 +77,28 @@ const getQuote = module.exports.getQuote = () => {
 }
 
 const addQuote = module.exports.addQuote = (data) => {
-  return openDatabase().then((res) => {
-    if (! res.success) throw res.obj
-    // Create quote object
-    let q = new Quote()
-    q.text = data.text
-    q.author = data.author
-    return q.save()
-  }).then((res) => {
-    logger.info('Quote save success!')
-    closeDatabase()
-  }).catch((err) => {
-    logger.error(err)
-    closeDatabase()
+  // Create quote object and save to db
+  let q = new Quote()
+  q.text = data.text
+  q.author = data.author
+  return q.save().then(() => {
+    return {success: true, obj: 'Quote save success!'}
+  }).catch(err => {
+    return {success: false, obj: err}
+  })
+}
+
+const jobFunc = module.exports.jobFunc = () => {
+  return getQuote().then(res => {
+    if (! res.success) throw res
+    // Construct quote string and send
+    let message = res.obj.toQuoteString()
+    return sendMessage(message)
+  }).then(res => {
+    if (! res.success) throw res
+    // Message sent at this point
+    return {success: true, obj: 'Message send success!'}
+  }).catch(err => {
+    return {success: false, obj: err}
   })
 }
