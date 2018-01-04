@@ -1,9 +1,9 @@
 const assert = require('assert'),
-      dotenv = require('dotenv')
+      utils = require('../utils')
 
 describe('Config', () => {
   before(() => {
-    dotenv.load()
+    utils.loadEnv()
   })
 
   it('Should load all env variables.', () => {

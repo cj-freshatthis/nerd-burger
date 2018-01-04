@@ -1,23 +1,6 @@
 const assert = require('assert'),
-      mongoose = require('mongoose'),
+      utils = require('../utils'),
       Quote = require('../models/quote')
-
-const initDatabase = (done) => {
-  mongoose.connect('mongodb://127.0.0.1/test')
-  let db = mongoose.connection
-  db.on('error', console.error.bind(console, 'connection error:'))
-  db.once('open', () => {
-    // Connection established
-    // Clear contents first
-    db.db.dropDatabase()
-    done()
-  })
-}
-
-const closeDatabase = (done) => {
-  mongoose.connection.close()
-  done()
-}
 
 const getQuote = () => {
   // Get a default simple quote
@@ -33,7 +16,10 @@ const isEmpty = (obj) => {
 
 describe('Quote', () => {
   before((done) => {
-    initDatabase(done)
+    utils.openDatabase().then(res => {
+      utils.dropDatabase()
+      done()
+    })
   })
 
   describe('Creation', () => {
@@ -81,6 +67,7 @@ describe('Quote', () => {
   })
 
   after((done) => {
-    closeDatabase(done)
+    utils.closeDatabase()
+    done()
   })
 })
