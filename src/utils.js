@@ -8,7 +8,7 @@ const logger = module.exports.logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({'timestamp':true})
   ]
-});
+})
 
 const loadEnv = module.exports.loadEnv = () => {
   logger.info('Loading environment variables.')
@@ -27,8 +27,8 @@ const openDatabase = module.exports.openDatabase = () => {
     if (! process.env.MOTIVATOR_DEBUG) {
       loadEnv()
     }
-    let debug = process.env.MOTIVATOR_DEBUG === 'true';
-    let url = debug ? process.env.DEV_DB_URL : process.env.PROD_DB_URL;
+    let debug = process.env.MOTIVATOR_DEBUG === 'true'
+    let url = debug ? process.env.DEV_DB_URL : process.env.PROD_DB_URL
     mongoose.connect(url)
       .then(() => {
         mongoose.connection.on('error', err => {
@@ -45,7 +45,7 @@ const openDatabase = module.exports.openDatabase = () => {
 }
 
 const dropDatabase = module.exports.dropDatabase = () => {
-  let debug = process.env.MOTIVATOR_DEBUG === 'true';
+  let debug = process.env.MOTIVATOR_DEBUG === 'true'
   if (debug) {
     logger.info('Dropping database.')
     mongoose.connection.db.dropDatabase()

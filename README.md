@@ -8,6 +8,8 @@ Scheduled motivational quotes via Slack.
 
 ## About
 
+[(back to top)](#motivator)
+
 I have created this repository for as a personal project to have a Slack app send me (and some friends)
 motivational quotes each weekday morning. Feel free to use whatever code is available here for your own personal use. Do [cite properly](https://integrity.mit.edu/handbook/writing-code), though!
 
@@ -20,6 +22,8 @@ Here's the stack I went with:
 - [Travis CI](https://travis-ci.org) for unit testing/validation
 
 ## Installation
+
+[(back to top)](#motivator)
 
 1. Clone it.
 
@@ -65,6 +69,8 @@ Here's the stack I went with:
     2018-01-04T04:51:09.524Z - info: Scheduled job.
     ```
 ## Extension
+
+[(back to top)](#motivator)
 
 You can also add your own quotes to the database as you come across them.
 
