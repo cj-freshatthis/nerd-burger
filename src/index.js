@@ -1,8 +1,6 @@
 const utils = require('./utils'),
       schedule = require("node-schedule")
 
-utils.loadEnv()
-
 // Schedule job with given timing - 7 AM weekdays
 let job = new schedule.Job('MainJob', () => {
   utils.openDatabase().then(res => {

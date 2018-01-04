@@ -12,7 +12,11 @@ const logger = module.exports.logger = new winston.Logger({
 
 const loadEnv = module.exports.loadEnv = () => {
   logger.info('Loading environment variables.')
-  dotenv.load()
+  try {
+    dotenv.load()
+  } catch (e) {
+    // Missing .env file - ignore
+  }
   logger.info('MOTIVATOR_DEBUG = ' + process.env.MOTIVATOR_DEBUG)
 }
 
