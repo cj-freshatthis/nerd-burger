@@ -2,10 +2,10 @@
   "name": "motivator",
   "version": "1.0.0",
   "description": "Scheduled motivational quotes via Slack.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "mocha"
+    "start": "node src/index.js",
+    "test": "mocha src/test/"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/kalyons11/motivator/issues"
   },
-  "homepage": "https://github.com/kalyons11/motivator#readme",
+  "homepage": "https://github.com/kalyons11/motivator",
   "dependencies": {
     "dotenv": "^4.0.0",
     "mocha": "^4.1.0",
