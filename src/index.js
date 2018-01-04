@@ -1,12 +1,18 @@
 const utils = require('./utils'),
-      schedule = require("node-schedule")
+      schedule = require("node-schedule"),
+      Quote = require('./models/quote')
 
 // Load env vars
 utils.loadEnv()
 
-// Connect to database
-utils.openDatabase().then((res) => {
-  utils.closeDatabase()
-}, (err) => {
-  console.error(err)
-})
+const getQuote = () => {
+  // Connect to database
+  utils.openDatabase().then((res) => {
+    // Get a random quote
+
+    utils.closeDatabase()
+  }, (err) => {
+    console.error(err)
+  })
+}
+

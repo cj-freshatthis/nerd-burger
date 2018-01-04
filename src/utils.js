@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
-      dotenv = require('dotenv')
+      dotenv = require('dotenv'),
+      { IncomingWebhook } = require('@slack/client')
 
 const loadEnv = module.exports.loadEnv = () => {
   console.log('Loading environment variables.')
@@ -13,10 +14,10 @@ const closeDatabase = module.exports.closeDatabase = () => {
 
 const openDatabase = module.exports.openDatabase = () => {
   console.log('Opening database connection.')
-  if (! process.env.DB_URL) {
-    loadEnv()
-  }
   return new Promise(function(resolve, reject) {
+    if (! process.env.DB_URL) {
+      loadEnv()
+    }
     mongoose.connect(process.env.DB_URL)
       .then(() => {
         mongoose.connection.on('error', err => {
@@ -35,4 +36,19 @@ const openDatabase = module.exports.openDatabase = () => {
 const dropDatabase = module.exports.dropDatabase = () => {
   console.log('Dropping database.')
   mongoose.connection.db.dropDatabase()
+}
+
+const sendMessage = module.exports.sendMessage = (message, hook) => {
+  return new Promise((resolve, reject) => {
+    if (! hook) {
+      if (! process.env.SLACK_URL) loadEnv()
+      hook = process.env.SLACK_URL
+    }
+    let notification = new IncomingWebhook(hook);
+    notification.send(message, (err, res) => {
+      console.log(err)
+      if (err) reject({success: false, obj: err})
+      else resolve({success: true, obj: res})
+    })
+  })
 }
