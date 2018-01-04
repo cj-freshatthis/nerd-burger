@@ -44,8 +44,11 @@ const openDatabase = module.exports.openDatabase = () => {
 }
 
 const dropDatabase = module.exports.dropDatabase = () => {
-  logger.info('Dropping database.')
-  mongoose.connection.db.dropDatabase()
+  let debug = process.env.MOTIVATOR_DEBUG === 'true';
+  if (debug) {
+    logger.info('Dropping database.')
+    mongoose.connection.db.dropDatabase()
+  }
 }
 
 const sendMessage = module.exports.sendMessage = (message, hook) => {

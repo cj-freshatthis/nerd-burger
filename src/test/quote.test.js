@@ -69,7 +69,6 @@ describe('Quote', () => {
         if (err) done(err)
         else {
           assert(docs.length > 0)
-          assert.equal(docs[0].author, 'Bob Smith')
           done()
         }
       })
@@ -78,14 +77,36 @@ describe('Quote', () => {
     it('Should be able to retrieve a random quote from the db.', (done) => {
       utils.getQuote().then(res => {
         assert(res.success)
-        assert.equal(res.obj.author, 'Bob Smith')
         done()
       })
     })
   })
 
+  describe('Deletion', () => {
+    it('Should be able to delete desired quotes from the db.', (done) => {
+      Quote.find().remove({author: 'Bob Smith'}, (err, res) => {
+        if (err) done(err)
+        else {
+          assert.equal(res.ok, 1)
+          done()
+        }
+      })
+    })
+
+    it('Should now have an empty database.', (done) => {
+      Quote.find({}, (err, docs) => {
+        if (err) done(err)
+        else {
+          assert.equal(docs.length, 0)
+          done()
+        }
+      })
+    })
+  })
+
   after((done) => {
-    utils.closeDatabase()
+    utils.dropDatabase()
+    setTimeout(utils.closeDatabase, 3000)
     done()
   })
 })
