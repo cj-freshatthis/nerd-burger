@@ -1,3 +1,5 @@
 TEST_KEY=test_value
-DB_URL=mongodb://localhost/motivator
+MOTIVATOR_DEBUG=true
+DEV_DB_URL=mongodb://localhost/motivator
+PROD_DB_URL=mongodb://dbuser:dbpass@host:port/dbname
 SLACK_URL=https://hooks.slack.com/services/secure-stuff-here

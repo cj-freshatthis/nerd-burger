@@ -21,12 +21,14 @@ const closeDatabase = module.exports.closeDatabase = () => {
 }
 
 const openDatabase = module.exports.openDatabase = () => {
-  logger.info('Opening database connection.')
   return new Promise(function(resolve, reject) {
-    if (! process.env.DB_URL) {
+    logger.info('Opening database connection.')
+    if (! process.env.MOTIVATOR_DEBUG) {
       loadEnv()
     }
-    mongoose.connect(process.env.DB_URL)
+    let debug = process.env.MOTIVATOR_DEBUG === 'true';
+    let url = debug ? process.env.DEV_DB_URL : process.env.PROD_DB_URL;
+    mongoose.connect(url)
       .then(() => {
         mongoose.connection.on('error', err => {
           reject({success: false, obj: err})
