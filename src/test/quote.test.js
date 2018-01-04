@@ -92,16 +92,6 @@ describe('Quote', () => {
         }
       })
     })
-
-    it('Should now have an empty database.', (done) => {
-      Quote.find({}, (err, docs) => {
-        if (err) done(err)
-        else {
-          assert.equal(docs.length, 0)
-          done()
-        }
-      })
-    })
   })
 
   after((done) => {
