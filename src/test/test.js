@@ -4,11 +4,11 @@ const assert = require('assert'),
       schedule = require('node-schedule')
 
 const getQuote = () => {
-  // Get a default simple quote
-  let q = new Quote()
-  q.text = "This is the quote."
-  q.author = "Bob Smith"
-  return q
+  // Get a default simple quote for testing
+  return new Quote({
+    text: 'This is the quote.',
+    author: 'Bob Smith'
+  })
 }
 
 describe('TestSuite', () => {
@@ -130,8 +130,7 @@ describe('TestSuite', () => {
     })
   })
 
-  after((done) => {
+  after(() => {
     utils.closeDatabase()
-    done()
   })
 })

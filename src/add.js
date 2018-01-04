@@ -1,8 +1,6 @@
 const utils = require('./utils'),
       prompt = require('prompt')
 
-prompt.start()
-
 const ask = () => {
   prompt.get(['text', 'author'], (err, res) => {
     if (err) throw err
@@ -12,7 +10,7 @@ const ask = () => {
         else {
           prompt.get(['continue'], (err, res) => {
             if (err) throw err
-            else if (res.continue === "y") ask()
+            else if (res['continue'] === "y") ask()
             else utils.closeDatabase()
           })
         }
@@ -23,6 +21,8 @@ const ask = () => {
     }
   })
 }
+
+prompt.start()
 
 utils.openDatabase().then(res => {
   if (! res.success) {
