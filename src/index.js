@@ -25,3 +25,4 @@ job.schedule({
 })
 
 utils.logger.info('Scheduled job.')
+utils.logger.info(job.nextInvocation())
