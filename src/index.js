@@ -15,8 +15,8 @@ let job = new schedule.Job('MainJob', () => {
 })
 
 job.schedule({
-  hour: 2,
-  minute: 35,
+  hour: 14,
+  minute: 40,
   dayOfWeek: [1, 2, 3, 4, 5]
   // second: null // testing only - fire every second
 })
