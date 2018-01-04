@@ -125,6 +125,8 @@ describe('TestSuite', () => {
       job.schedule({
         second: null // fire on the next second - then we will cancel
       })
+
+      assert.equal(job.name, 'test')
     })
   })
 
