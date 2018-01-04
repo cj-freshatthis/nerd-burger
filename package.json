@@ -23,7 +23,8 @@
     "mocha": "^4.1.0",
     "mongoose": "^5.0.0-rc1",
     "mongoose-random": "^0.1.1",
-    "node-schedule": "^1.2.5"
+    "node-schedule": "^1.2.5",
+    "winston": "^2.4.0"
   },
   "engines": {
     "node": "8.4.0",

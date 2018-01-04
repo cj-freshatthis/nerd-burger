@@ -10,6 +10,11 @@ const schema = new mongoose.Schema({
 })
 
 // Adding random plugin
-schema.plugin(random, { path: 'r' });
+schema.plugin(random, { path: 'r' })
+
+// Adding method to convert to string
+schema.methods.toQuoteString = function() {
+  return '"' + this.text + '" - ' + this.author
+}
 
 module.exports = mongoose.model('Quote', schema)

@@ -28,6 +28,11 @@ describe('Quote', () => {
       assert.equal(q.text, 'This is the quote.')
       assert.equal(q.author, 'Bob Smith')
     })
+
+    it('Should convert to a quote string correctly.', () => {
+      let q = getQuote()
+      assert.equal(q.toQuoteString(), '"This is the quote." - Bob Smith')
+    })
   })
 
   describe('Saving', () => {
@@ -68,8 +73,7 @@ describe('Quote', () => {
     it('Should be able to retrieve a random quote from the db.', (done) => {
       utils.getQuote().then(res => {
         assert(res.success)
-        assert.equal(res.obj.length, 1)
-        assert.equal(res.obj[0].author, 'Bob Smith')
+        assert.equal(res.obj.author, 'Bob Smith')
         done()
       })
     })

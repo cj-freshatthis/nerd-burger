@@ -1,18 +1,28 @@
 const utils = require('./utils'),
-      schedule = require("node-schedule"),
-      Quote = require('./models/quote')
+      schedule = require("node-schedule")
 
 // Load env vars
 utils.loadEnv()
 
-const getQuote = () => {
-  // Connect to database
+const jobFunc = () => {
   utils.openDatabase().then((res) => {
-    // Get a random quote
-
+    if (! res.success) throw res.obj
+    return utils.getQuote()
+  }).then((res) => {
+    if (! res.success) throw res.obj
+    // Construct quote string and send
+    let message = res.obj.toQuoteString()
+    return utils.sendMessage(message)
+  }).then((res) => {
+    if (! res.success) throw res.obj
+    // Message sent at this point
+    utils.logger.info('Message send success!')
     utils.closeDatabase()
-  }, (err) => {
-    console.error(err)
+  }).catch((err) => {
+    utils.logger.error(err)
+    utils.closeDatabase()
   })
 }
+
+jobFunc()
 
