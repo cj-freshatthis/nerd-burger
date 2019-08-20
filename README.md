@@ -1,3 +1,9 @@
+# Intro to this version 
+
+This version builds on the previous (extracted below) where trying to build a bot that launches Monday Motivational stimulii into slack every Monday.
+
+Will need lots of help as this is my first "coding" aka "tweaking" project that I'm actually going to try and finish. Who knows. 
+
 # motivator
 
 [![Build Status](https://travis-ci.org/kalyons11/motivator.svg?branch=master)](https://travis-ci.org/kalyons11/motivator) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
